@@ -10,12 +10,14 @@ import uploadRoute from './routes/uploadRoute';
 
 const mongodbUrl = config.MONGODB_URL;
 mongoose
-  .connect(mongodbUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
+  .connect(mongodbUrl)
+  .then(() => {
+    console.log('Connected to MongoDB');
   })
-  .catch((error) => console.log(error.reason));
+  .catch((error) => {
+    console.error('Connection error:', error);
+  });
+
 
 const app = express();
 app.use(bodyParser.json());

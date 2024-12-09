@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
@@ -25,6 +25,7 @@ function App() {
   const closeMenu = () => {
     document.querySelector('.sidebar').classList.remove('open');
   };
+
   return (
     <BrowserRouter>
       <div className="grid-container">
@@ -34,7 +35,7 @@ function App() {
             <Link to="/">amazona</Link>
           </div>
           <div className="header-links">
-            <a href="cart.html">Cart</a>
+            <Link to="/cart">Cart</Link>
             {userInfo ? (
               <Link to="/profile">{userInfo.name}</Link>
             ) : (
@@ -42,7 +43,7 @@ function App() {
             )}
             {userInfo && userInfo.isAdmin && (
               <div className="dropdown">
-                <a href="#">Admin</a>
+                <Link to="#">Admin</Link>
                 <ul className="dropdown-content">
                   <li>
                     <Link to="/orders">Orders</Link>
@@ -62,7 +63,6 @@ function App() {
             <li>
               <Link to="/category/Pants">Pants</Link>
             </li>
-
             <li>
               <Link to="/category/Shirts">Shirts</Link>
             </li>
@@ -70,22 +70,24 @@ function App() {
         </aside>
         <main className="main">
           <div className="content">
-            <Route path="/orders" component={OrdersScreen} />
-            <Route path="/profile" component={ProfileScreen} />
-            <Route path="/order/:id" component={OrderScreen} />
-            <Route path="/products" component={ProductsScreen} />
-            <Route path="/shipping" component={ShippingScreen} />
-            <Route path="/payment" component={PaymentScreen} />
-            <Route path="/placeorder" component={PlaceOrderScreen} />
-            <Route path="/signin" component={SigninScreen} />
-            <Route path="/register" component={RegisterScreen} />
-            <Route path="/product/:id" component={ProductScreen} />
-            <Route path="/cart/:id?" component={CartScreen} />
-            <Route path="/category/:id" component={HomeScreen} />
-            <Route path="/" exact={true} component={HomeScreen} />
+            <Routes>
+              <Route path="/orders" element={<OrdersScreen />} />
+              <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/order/:id" element={<OrderScreen />} />
+              <Route path="/products" element={<ProductsScreen />} />
+              <Route path="/shipping" element={<ShippingScreen />} />
+              <Route path="/payment" element={<PaymentScreen />} />
+              <Route path="/placeorder" element={<PlaceOrderScreen />} />
+              <Route path="/signin" element={<SigninScreen />} />
+              <Route path="/register" element={<RegisterScreen />} />
+              <Route path="/product/:id" element={<ProductScreen />} />
+              <Route path="/cart/:id?" element={<CartScreen />} />
+              <Route path="/category/:id" element={<HomeScreen />} />
+              <Route path="/" element={<HomeScreen />} />
+            </Routes>
           </div>
         </main>
-        <footer className="footer">All right reserved.</footer>
+        <footer className="footer">All rights reserved.</footer>
       </div>
     </BrowserRouter>
   );
